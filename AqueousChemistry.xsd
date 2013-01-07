@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (x64) (http://www.altova.com) by Ryan Clark (private) -->
+<xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/aqueouschemistry/1.9" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:gmlsf="http://www.opengis.net/gmlsf" targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/aqueouschemistry/1.9" elementFormDefault="qualified" version="01.09">
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gmlsf" schemaLocation="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd"/>
+	<xs:annotation>
+		<!--This XSD document, including XML schema, indicates the content requested for aqueous chemistry data, either for a thermal well or a thermal spring. In the geothermal data system, chemical observations are one of the observation services that are used as a method to discover resources derived from thermal springs or thermal wells with particular characteristics. Each chemical analysis observation should have a unique AnalysisURI and a corresponding SamplingFeatureURI-->
+		<!--This XSD document was created on 2012-24-02 by Celia Coleman, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for the spring chemistry in Arizona. -->
+		<!--The element "GasIsotope" was corrected to "GasIsotopes" by Celia Coleman on 10-21-2012-->
+		<xs:appinfo source="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd">
+			<gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
+			<gmlsf:GMLProfileSchema>
+http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gmlsf:GMLProfileSchema>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="WaterQuality" type="aasg:WaterQualityObsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="CommonAnalytes" type="aasg:WaterChemCommonConstituentsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="BaseMetals" type="aasg:WaterBaseMetalsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="MajorDissolvedConstituents" type="aasg:WaterMajorDissolvedConstituentsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="MinorDissolvedConstituents" type="aasg:WaterMinorDissolvedConstituentsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="Nitrogen" type="aasg:WaterNitrogenObsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="WaterDissolvedGas" type="aasg:WaterDissolvedGasObsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="FreeGas" type="aasg:GasCompositionObsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="WaterIsotopes" type="aasg:WaterIsotopesObsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="GasIsotopes" type="aasg:GasIsotopesObsType" substitutionGroup="gml:_Feature"/>
+	<xs:element name="IsotopesDissolved" type="aasg:WaterSupplementalIsotopesObsType" substitutionGroup="gml:_Feature"/>
+	<xs:complexType name="SampleAnalysisCommonType">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="AnalysisURI">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="AnalysisName" type="xs:string"/>
+					<xs:element name="Notes" type="xs:string" minOccurs="0"/>
+					<xs:element name="SamplingFeatureName" type="xs:string"/>
+					<xs:element name="SamplingFeatureURI">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="OtherSiteID" type="xs:string" minOccurs="0"/>
+					<xs:element name="SpecimenID" type="xs:string" minOccurs="0"/>
+					<xs:element name="Label" type="xs:string" minOccurs="0"/>
+					<xs:element name="SpecimenDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="SpecimenURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="SpecimenCollectionDate" type="xs:string" minOccurs="0"/>
+					<xs:element name="SpecimenCollectionMethod" type="xs:string" minOccurs="0"/>
+					<xs:element name="OtherAnalyticalData" type="xs:string" minOccurs="0"/>
+					<xs:element name="FluidTemperature_C" type="xs:double" minOccurs="0"/>
+					<xs:element name="Discharge" type="xs:double" minOccurs="0"/>
+					<xs:element name="DischargeUnits" type="xs:string" minOccurs="0"/>
+					<xs:element name="County" type="xs:string"/>
+					<xs:element name="State" type="xs:string"/>
+					<xs:element name="LatDegree" type="xs:double"/>
+					<xs:element name="LongDegree" type="xs:double"/>
+					<xs:element name="SRS" type="xs:string"/>
+					<xs:element name="LocationUncertaintyStatement" type="xs:string" minOccurs="0"/>
+					<xs:element name="PLSSMeridians" type="xs:string" minOccurs="0"/>
+					<xs:element name="Township" type="xs:string" minOccurs="0"/>
+					<xs:element name="Range" type="xs:string" minOccurs="0"/>
+					<xs:element name="Section_" type="xs:double" minOccurs="0"/>
+					<xs:element name="SectionPart" type="xs:string" minOccurs="0"/>
+					<xs:element name="Elevation" type="xs:double" minOccurs="0"/>
+					<xs:element name="ElevationDatum" type="xs:string" minOccurs="0"/>
+					<xs:element name="ElevationUnits" type="xs:string" minOccurs="0"/>
+					<xs:element name="Source" type="xs:string"/>
+					<xs:element name="MetadataURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="AnalysisType" type="xs:string" minOccurs="0"/>
+					<xs:element name="AnalysisDate" type="xs:string" minOccurs="0"/>
+					<xs:element name="Laboratory" type="xs:string" minOccurs="0"/>
+					<xs:element name="ProcedureSummary" type="xs:string" minOccurs="0"/>
+					<xs:element name="DataEntrySource" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterQualityObsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="ph_Field" type="xs:double" minOccurs="0"/>
+					<xs:element name="ph_Lab" type="xs:double" minOccurs="0"/>
+					<xs:element name="SpecificConductance_mS" type="xs:double" minOccurs="0"/>
+					<xs:element name="ConductanceNote" type="xs:string" minOccurs="0"/>
+					<xs:element name="Conductance_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="TotalDissolvedSolids_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="TotalDissolvedSolids_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="TotalSuspendedSolids_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="TotalSuspendedSolids_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="Turbidity_ntu" type="xs:double" minOccurs="0"/>
+					<xs:element name="TurbidityMethod" type="xs:string" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterChemCommonConstituentsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="FractionAnalyzed" type="xs:string" minOccurs="0"/>
+					<xs:element name="Br_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Ca_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Cl_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="F_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Fe_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="FeTot_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="K_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Na_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Na-K_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Na plus K as specific analytical value not a summary of Na and K results</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Sr_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Alkalinity_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="Hardness_CaCO3_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Hardness_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="TotalDissolvedSolids_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="TotalDissolvedSolids_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="NO3_mgL" type="xs:string" minOccurs="0"/>
+					<xs:element name="Carbonate_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Bicarbonate_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="SiO2_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="SO4_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterBaseMetalsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="FractionAnalyzed" type="xs:string" minOccurs="0"/>
+					<xs:element name="As_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Al_monomeric_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Al_total_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Au_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Ba_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Be_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Bi_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="B_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Cd_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Co_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Cs_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Pb_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Cr_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Cu_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Mo_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Mn_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Hg_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Ni_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Ag_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="P_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="S_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Si_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Sn_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Sb_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Se_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Ti_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="U_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="V_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Zn_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Li_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="W_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterMajorDissolvedConstituentsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="Ca_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Mg_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Na-K_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Na_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="K_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="SiO2_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Cl_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="F_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="SO4_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="cation_total" type="xs:double" minOccurs="0"/>
+					<xs:element name="anion_total" type="xs:double" minOccurs="0"/>
+					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Alkalinity_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="chargeBalance_pct" type="xs:double" minOccurs="0"/>
+					<xs:element name="Hardness_CaCO3" type="xs:double" minOccurs="0"/>
+					<xs:element name="HardnessMethod" type="xs:string" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterMinorDissolvedConstituentsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="B_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Fe_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NH4_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO3_field_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO3_lab_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO2_field_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO2_lab_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Br_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="H_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="I_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Mn_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="OH_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="PO4_as_P_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Rb_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Sr_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Zr_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterNitrogenObsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="Nitrate_mgL_field" type="xs:double" minOccurs="0"/>
+					<xs:element name="Nitrate_mgL_lab" type="xs:double" minOccurs="0"/>
+					<xs:element name="Nitrite_mgL_field" type="xs:double" minOccurs="0"/>
+					<xs:element name="Nitrite_mgL_lab" type="xs:double" minOccurs="0"/>
+					<xs:element name="NitratePlusNitrite_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NH4_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="N_Kjeldahl_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NH4_as_N_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO3_field_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO3_lab_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO2_field_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO2_lab_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterDissolvedGasObsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="Ar_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="O2_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="N2_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="CH4_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="CO2_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="He_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="H2_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="H2S_as_N_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Kr_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Ne_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GasCompositionObsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="Ar_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="O2plusAr_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="O2_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="N2_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="CO2_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="CH4_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="C2H6_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="H2S_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="He_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="H2_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="Kr_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="Ne_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="NH3_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="NO_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="SO2_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="TotalFreeGas_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterIsotopesObsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="Delta_13Ctotal_dissolved" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta18O_sulfate" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta34S" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta_13C_HCO3" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta_13Cmineral_carbonate" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta18Omineral_sulfate" type="xs:double" minOccurs="0"/>
+					<xs:element name="r14C_pctModern" type="xs:double" minOccurs="0"/>
+					<xs:element name="r87Sr-86Sr" type="xs:double" minOccurs="0"/>
+					<xs:element name="r208Pb-204Pb_diss" type="xs:double" minOccurs="0"/>
+					<xs:element name="r208Pb-204Pb_rock" type="xs:double" minOccurs="0"/>
+					<xs:element name="r207Pb-204Pb_diss" type="xs:double" minOccurs="0"/>
+					<xs:element name="r207Pb-204Pb_rock" type="xs:double" minOccurs="0"/>
+					<xs:element name="r206Pb-204Pb_diss" type="xs:double" minOccurs="0"/>
+					<xs:element name="r206Pb-204Pb_rock" type="xs:double" minOccurs="0"/>
+					<xs:element name="r11B-10B" type="xs:double" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterSupplementalIsotopesObsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="Delta18O_steam" type="xs:double" minOccurs="0"/>
+					<xs:element name="DeltaDeuterium_steam" type="xs:double" minOccurs="0"/>
+					<xs:element name="DeltaDeuterium_H2O" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta18O_H2O" type="xs:double" minOccurs="0"/>
+					<xs:element name="r18O-16O" type="xs:double" minOccurs="0"/>
+					<xs:element name="r3He-2He" type="xs:double" minOccurs="0"/>
+					<xs:element name="r3H-2H" type="xs:double" minOccurs="0"/>
+					<xs:element name="Rn222_pCiL" type="xs:double" minOccurs="0"/>
+					<xs:element name="U_activity_pCiL" type="xs:double" minOccurs="0"/>
+					<xs:element name="U_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="AlphaParticleActivity_pCiL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Ra226Total_pCiL" type="xs:double" minOccurs="0"/>
+					<xs:element name="TotalRa_pCiL" type="xs:double" minOccurs="0"/>
+					<xs:element name="tritium_TU" type="xs:double" minOccurs="0"/>
+					<xs:element name="Tritium_TU" type="xs:double" minOccurs="0"/>
+					<xs:element name="r234U_238U" type="xs:double" minOccurs="0"/>
+					<xs:element name="r3He_4He" type="xs:double" minOccurs="0"/>
+					<xs:element name="Cerium_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Tellurium_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Thorium_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Ge_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="r228Ra" type="xs:double" minOccurs="0"/>
+					<xs:element name="r234U" type="xs:double" minOccurs="0"/>
+					<xs:element name="r235U" type="xs:double" minOccurs="0"/>
+					<xs:element name="r238U" type="xs:double" minOccurs="0"/>
+					<xs:element name="r230Th" type="xs:double" minOccurs="0"/>
+					<xs:element name="r232Th" type="xs:double" minOccurs="0"/>
+					<xs:element name="rCe_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Te_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Th_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GasIsotopesObsType">
+		<xs:complexContent>
+			<xs:extension base="aasg:SampleAnalysisCommonType">
+				<xs:sequence>
+					<xs:element name="Delta13C_CO2" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta18O_CO2" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta15N-N2" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta34S-SO4" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta34S-H2S" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta13C-CH4" type="xs:double" minOccurs="0"/>
+					<xs:element name="r3He-4He" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta144Nd-143Nd" type="xs:double" minOccurs="0"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
