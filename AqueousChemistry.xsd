@@ -5,7 +5,7 @@
 	<xs:import namespace="http://www.opengis.net/gmlsf" schemaLocation="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd"/>
 	<xs:annotation>
 		<!--This XSD document, including XML schema, indicates the content requested for aqueous chemistry data, either for a thermal well or a thermal spring. In the geothermal data system, chemical observations are one of the observation services that are used as a method to discover resources derived from thermal springs or thermal wells with particular characteristics. Each chemical analysis observation should have a unique AnalysisURI and a corresponding SamplingFeatureURI-->
-		<!--This XSD document was created on 2013-14-02 by Christy Caudill, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for spring and well chemistry in Arizona. -->
+		<!--This XSD document was created on 2013-14-02 and edited on 2013-04-30 to contain descriptive annotation by Christy Caudill, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for spring and well chemistry in Arizona. -->
 		<xs:appinfo source="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd">
 			<gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
 			<gmlsf:GMLProfileSchema>
@@ -28,57 +28,185 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="gml:AbstractFeatureType">
 				<xs:sequence>
-					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Integer record count, added by ArcGIS servers during service deployment; not required but cannot be removed when deploying from ArcGIS feature class. Not user maintained, so this element appears in XML implementation but not in the WellHeaderTemplate.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="AnalysisURI">
+						<xs:annotation>
+							<xs:documentation>The AnalysisURI uniquely identifies a discrete chemical analysis of a specimen taken from a feature (usually a spring or borehole).  The feature from which the specimen was taken will be identified by the SamplingFeatureURI.  This element is mandatory and can be no more than 255 characters long.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AnalysisName" type="xs:string"/>
-					<xs:element name="Notes" type="xs:string" minOccurs="0"/>
-					<xs:element name="SamplingFeatureName" type="xs:string"/>
+					<xs:element name="AnalysisName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Common or known human-readable label for the analysis identified by the AnalysisURI. This element is mandatory.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Notes" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Any other information about the sampling feature or analysis identified by the AnalysisURI.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SamplingFeatureName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Common or known human-readable label for the feature from which the analyzed specimen was taken.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="SamplingFeatureURI">
+						<xs:annotation>
+							<xs:documentation>Identifier for the particular site or feature that are used to access or obtain the sample--e.g a thermal spring or well.  For many wells, this might be an API number.  This element is mandatory and can be no more than 255 characters long.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="SamplingFeatureType" type="xs:string" minOccurs="0"/>
-					<xs:element name="OtherSiteID" type="xs:string" minOccurs="0"/>
-					<xs:element name="SpecimenID" type="xs:string" minOccurs="0"/>
-					<xs:element name="Label" type="xs:string" minOccurs="0"/>
-					<xs:element name="SpecimenDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="SamplingFeatureType" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Text string categorinzing the feature type. See Data Valid Terms tab in workbook.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherSiteID" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Any other identifiers associated with the sampling feature (site). May be a permit number, registry ID, USGS Geotherm Record ID (as 7 digit number).  (PermitNo;RegistryID).   Recommended practice is to include short abbreviation in a prefix to indicate the authority or scope of the identifier. Any prefixes used in the data set should be explained in the dataset metadata.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SpecimenID" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Identifer associated with sample by original collector or other authority. Recommended practice is to include short abbreviation in a prefix to indicate the authority or scope of the identifier. Any prefixes used in the data set should be explained in the dataset metadata.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Label" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A human-readable label for the record identified by the AnalysisURI.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SpecimenDescription" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A brief free-text generic description of the analyzed specimen.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="SpecimenURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A globally unique identifier for the sample, ideally one that is assigned under some formal registration system like SESAR (http://www.geosamples.org/).  HTTP URIs that can be dereferenced on the web are highly preferred. The SpecimenURI is the key to link the chemical analysis with the sample from which it was obtained.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="SpecimenCollectionDate" type="xs:string" minOccurs="0"/>
-					<xs:element name="SpecimenCollectionMethod" type="xs:string" minOccurs="0"/>
-					<xs:element name="OtherAnalyticalData" type="xs:string" minOccurs="0"/>
-					<xs:element name="DrilledDepth_ft" type="xs:double" minOccurs="0"/>
-					<xs:element name="FluidTemperature_C" type="xs:double" minOccurs="0"/>
-					<xs:element name="Discharge" type="xs:double" minOccurs="0"/>
-					<xs:element name="DischargeUnits" type="xs:string" minOccurs="0"/>
-					<xs:element name="County" type="xs:string"/>
-					<xs:element name="State" type="xs:string"/>
-					<xs:element name="LatDegree" type="xs:double"/>
-					<xs:element name="LongDegree" type="xs:double"/>
-					<xs:element name="SRS" type="xs:string"/>
-					<xs:element name="LocationUncertaintyStatement" type="xs:string" minOccurs="0"/>
-					<xs:element name="PLSSMeridians" type="xs:string" minOccurs="0"/>
-					<xs:element name="Township" type="xs:string" minOccurs="0"/>
-					<xs:element name="Range" type="xs:string" minOccurs="0"/>
-					<xs:element name="Section_" type="xs:double" minOccurs="0"/>
-					<xs:element name="SectionPart" type="xs:string" minOccurs="0"/>
-					<xs:element name="Elevation_ft_msl" type="xs:double" minOccurs="0"/>
-					<xs:element name="Source" type="xs:string"/>
+					<xs:element name="SpecimenCollectionDate" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Date and time specimen (sample) was collected. For most samples the time may be unknown; recommended default is 12 noon to avoid ambiguity at midnight. Use ISO 8601 formatting: YYYY-MM-DDTHH:MM</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SpecimenCollectionMethod" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Text description of process used to collect specimen (sample); include any keywords that may typically be used to categorize sampling procedures.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherAnalyticalData" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Text describing other analytical data associated with this sample; Ideally might be URI for observation records reporting related results.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DrilledDepth_ft" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Length of borehole, from borehole origin to bottom of borehole.  This field only applies for chemistry analysis from boreholes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FluidTemperature_C" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Temperature of fluid when sampled; all temperatures must be reported in degrees Celsius.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Discharge" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Average measured volume of water per unit of time.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DischargeUnits" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Units of measurement for reported discharge.  See data valid terms tab for a list of reporting units.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="County" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Name of county in which the sampling feature is located.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="State" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Name of state in which the sampling feature is located.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LatDegree" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Latitude coordinate for the surface location of the sampling feature.  Report in decimal degrees.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LongDegree" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Longitude coordinate for the surface location of the sampling feature.  Report in decimal degrees.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SRS" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Spatial reference system used for reporting latitude and longitude coordinates.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationUncertaintyStatement" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Provide information about how location was established and level of uncertainty.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PLSSMeridians" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List east-west and north-south meridians that Townships and Ranges are referenced to.  The Public Land Survey System (PLSS) uses a series of meridians and baselines as reference points for the determination of Township and Range.  A meridian is a specific line of longitude; a baseline is a specific line of latitude. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Township" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Township is based on 6 mile intervals north or south of a baseline.  For example, a township of 4N (T4N or 4N) indicates the fourth 6x6 mile township north of a given baseline.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Range" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Range is based on 6-mile intervals east or west of a Meridian. For example, a range of 7E (R7E or 7E) indicates the seventh 6x6 township east of a given meridian.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Section_" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Each 6x6 mile PLSS township is divided into 1x1 mile sections, of which there are 36 per township.  Each section is individually numbered, from 1 to 36, starting at the NE corner, counting west (6 miles), then south (1 mile), then back east, then south, back west.... ziz-zagging to section 36 in the SE corner of the township.  Must be numeric or null. Some surveys include half sections indicated by a 'nn.5' designation, where n indicates a number.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SectionPart" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>PLSS sections can be divided into quarters; in such cases, relevant quarters are listed by their relative location within the section: northwest, southwest, northeast, and southeast.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Elevation_ft_msl" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Elevation of the sampling feature reported in feet, with respect to mean sea level.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Source" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Reference and/or citation for the data source.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="SourceURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Http URI referencing the data source or citation for the analysis identified by the AnalysisURI.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
@@ -86,15 +214,30 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 						</xs:simpleType>
 					</xs:element>
 					<xs:element name="MetadataURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>URI that dereferences to metadata about the analysis identified by the AnalysisURI.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AnalysisDateTime" type="xs:string" minOccurs="0"/>
-					<xs:element name="Laboratory" type="xs:string" minOccurs="0"/>
-					<xs:element name="AnalyticalProcedure" type="xs:string" minOccurs="0"/>
+					<xs:element name="AnalysisDateTime" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Date and time specimen (sample) was analyzed. For some samples the time may be unknown; recommended default is 12 noon to avoid ambiguity at midnight. Use ISO 8601 formatting: YYYY-MM-DDTHH:MM</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Laboratory" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Laboratory where analysis identified by the AnalysisURI was performed.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AnalyticalProcedure" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Summary of analytical techniques for all constituents in this analysis.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -103,17 +246,61 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="ph_Field" type="xs:double" minOccurs="0"/>
-					<xs:element name="ph_Lab" type="xs:double" minOccurs="0"/>
-					<xs:element name="SpecificConductance_mS" type="xs:double" minOccurs="0"/>
-					<xs:element name="ConductanceNote" type="xs:string" minOccurs="0"/>
-					<xs:element name="Conductance_method" type="xs:string" minOccurs="0"/>
-					<xs:element name="TotalDissolvedSolids_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="TotalDissolvedSolids_method" type="xs:string" minOccurs="0"/>
-					<xs:element name="TotalSuspendedSolids_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="TotalSuspendedSolids_method" type="xs:string" minOccurs="0"/>
-					<xs:element name="Turbidity_ntu" type="xs:double" minOccurs="0"/>
-					<xs:element name="Turbidity_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="ph_Field" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Field measure of the acidity or basicity of an aqueous solution. pH approximates but is not equal to p[H], the negative logarithm (base 10) of the molar concentration of dissolved hydrogen ions (H+).</xs:documentation>
+						</xs:annotation>  
+					</xs:element>
+					<xs:element name="ph_Lab" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Laboratory measure of the acidity or basicity of an aqueous solution. pH approximates but is not equal to p[H], the negative logarithm (base 10) of the molar concentration of dissolved hydrogen ions (H+).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SpecificConductance_mS" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Measurement of the ability of a substance to conduct electricity. Reported in S/m (Siemens/meter).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ConductanceNote" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Notes on specific conductance measurements.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Conductance_method" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Method of obtaining specific conductance measurements.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TotalDissolvedSolids_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total dissolved solids reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TotalDissolvedSolids_method" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Method used to determine total dissolved solids.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TotalSuspendedSolids_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total suspended solids reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TotalSuspendedSolids_method" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Method used to determine total suspended solids.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Turbidity_ntu" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Nephelometric (ntu) refers to the way the instrument, a nephelometer, measures how much light is scattered by suspended particles in the water. The greater the scattering, the higher the turbidity. Therefore, low NTU values indicate high water clarity, while high NTU values indicate low water clarity. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Turbidity_method" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Method used to determine turbidity, in the field or in the lab.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType"/>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -135,21 +322,54 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="Na_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="Na-K_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Na plus K as specific analytical value not a summary of Na and K results</xs:documentation>
+							<xs:documentation>Na plus K as specific analytical value not a summary of Na and K results.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="NO3_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="SiO2_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="SO4_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="Sr_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Alkalinity_method" type="xs:string" minOccurs="0"/>
-					<xs:element name="Bicarbonate_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Carbonate_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Hardness_CaCO3_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Hardness_method" type="xs:string" minOccurs="0"/>
-					<xs:element name="TotalDissolvedSolids_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="TotalDissolvedSolids_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Quantitative capacity of water to neutralize an acid.  Reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Alkalinity_method" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Method used to measure alkalinity.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Bicarbonate_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The bicarbonate ion (hydrogen carbonate ion) is an anion with the empirical formula HCO3− and a molecular mass of 61.01 daltons; it consists of one central carbon atom surrounded by three oxygen atoms in a trigonal planar arrangement, with a hydrogen atom attached to one of the oxygens. Reported in mg/L.
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Carbonate_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The carbonate ion is the simplest oxocarbon anion. It consists of one carbon atom surrounded by three identical oxygen atoms, in a trigonal planar arrangement.  Reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Hardness_CaCO3_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Hardness is the concentration of multivalent cations reported as equivalent CaCO3 within the solution. Reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Hardness_method" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Method used to determine hardness.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TotalDissolvedSolids_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total dissolved solids reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TotalDissolvedSolids_method" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Method used to determine total dissolved solids.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType"/>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -162,7 +382,11 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 				<xs:sequence>
 					<xs:element name="FractionAnalyzed" type="xs:string" minOccurs="0"/>
 					<xs:element name="Ag_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Al_monomeric_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="Al_monomeric_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Aluminum which may bind chemically to other molecules to form a polymer.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Al_total_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="As_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="Au_mgL" type="xs:double" minOccurs="0"/>
@@ -213,11 +437,31 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="SO4_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="cation_total" type="xs:double" minOccurs="0"/>
 					<xs:element name="anion_total" type="xs:double" minOccurs="0"/>
-					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Alkalinity_method" type="xs:string" minOccurs="0"/>
-					<xs:element name="chargeBalance_pct" type="xs:double" minOccurs="0"/>
-					<xs:element name="Hardness_CaCO2" type="xs:double" minOccurs="0"/>
-					<xs:element name="Hardness_method" type="xs:string" minOccurs="0"/>
+					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Quantitative capacity of water to neutralize an acid.  Reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Alkalinity_method" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Method used to measure alkalinity.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="chargeBalance_pct" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Ratio of cations to anions as a percent.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Hardness_CaCO2" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Hardness is the concentration of multivalent cations reported as equivalent CaCO2 within the solution.  Reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Hardness_method" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Method used to determine hardness.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType"/>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -254,12 +498,20 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="N_Kjeldahl_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="N_Kjeldahl_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total Kjeldahl Nitrogen or TKN is the sum of organic nitrogen, ammonia (NH3), and ammonium (NH4+) in the chemical analysis of soil, water, or wastewater (e.g. sewage treatment plant effluent). To calculate Total Nitrogen (TN), the concentrations of nitrate-N and nitrite-N are determined and added to TKN. TKN is determined in the same manner as organic nitrogen, except that the ammonia is not driven off before the digestion step.  Reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="NH4_as_N_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="NH4_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="Nitrate_field_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="Nitrate_lab_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="NitratePlusNitrite_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="NitratePlusNitrite_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Nitrate NO3 plus Nitrite NO2 in mg/L.  Nitrate (NO3) is highly soluble (dissolves easily) in water and is stable over a wide range of environmental conditions.  Reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Nitrite_field_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="Nitrite_lab_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="NO_mgL" type="xs:double" minOccurs="0"/>
@@ -310,9 +562,17 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="NH3_volpct" type="xs:double" minOccurs="0"/>
 					<xs:element name="NO_volpct" type="xs:double" minOccurs="0"/>
 					<xs:element name="O2_volpct" type="xs:double" minOccurs="0"/>
-					<xs:element name="O2plusAr_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="O2plusAr_volpct" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Oxygen as O2 plus Ar.  Reported as a volume percent.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="SO2_volpct" type="xs:double" minOccurs="0"/>
-					<xs:element name="TotalFreeGas_volpct" type="xs:double" minOccurs="0"/>
+					<xs:element name="TotalFreeGas_volpct" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Dissolved gas, reported as a volume percent.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType"/>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -323,21 +583,77 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="Delta_13C_HCO3" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta_13Cmineral_carbonate" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta_13Ctotal_dissolved" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta18O_sulfate" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta18Omineral_sulfate" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta_13C_HCO3" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic Ratio of 13-C:HCO3 in carbonate minerals, reported in parts per thousand (per mil).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta_13Cmineral_carbonate" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic Ratio of 13-C:12-C in carbonate minerals.  In geochemistry, paleoclimatology and paleoceanography 13-C is an isotopic signature, a measure of the ratio of stable isotopes 13-C:12-C, reported in parts per thousand (per mil).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta_13Ctotal_dissolved" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Ratio of 13-C:12-C in solution.  Carbon-13 (13C) is a natural, stable isotope of carbon and one of the environmental isotopes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta18O_sulfate" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The delta 18-O value in sulfate.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta18Omineral_sulfate" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic Ratio of 18-O:16-O in sulfate.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Delta34S" type="xs:double" minOccurs="0"/>
-					<xs:element name="r11B_10B" type="xs:double" minOccurs="0"/>
-					<xs:element name="r14C_pctModern" type="xs:double" minOccurs="0"/>
-					<xs:element name="r206Pb_204Pb_diss" type="xs:double" minOccurs="0"/>
-					<xs:element name="r206Pb_204Pb_rock" type="xs:double" minOccurs="0"/>
-					<xs:element name="r207Pb_204Pb_diss" type="xs:double" minOccurs="0"/>
-					<xs:element name="r207Pb_204Pb_rock" type="xs:double" minOccurs="0"/>
-					<xs:element name="r208Pb_204Pb_diss" type="xs:double" minOccurs="0"/>
-					<xs:element name="r208Pb_204Pb_rock" type="xs:double" minOccurs="0"/>
-					<xs:element name="r87Sr_86Sr" type="xs:double" minOccurs="0"/>
+					<xs:element name="r11B_10B" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Carbon-14 as a percent of modern carbon, calibrated.  Carbon-14, 14C, or radiocarbon, is a radioactive isotope of carbon with a nucleus containing 6 protons and 8 neutrons.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r14C_pctModern" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Carbon-14 as a percent of modern carbon, calibrated.  Carbon-14, 14C, or radiocarbon, is a radioactive isotope of carbon with a nucleus containing 6 protons and 8 neutrons.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r206Pb_204Pb_diss" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic Ratio of 206-Pb : 204-Pb dissolved in solution.  Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r206Pb_204Pb_rock" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratio of 207-Pb : 204-Pb in a rock sample.  Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r207Pb_204Pb_diss" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic Ratio of 207-Pb : 204-Pb dissolved in solution.  Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r207Pb_204Pb_rock" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratio of 207-Pb : 204-Pb in a rock sample.  Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r208Pb_204Pb_diss" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic Ratio of 208-Pb : 204-Pb dissolved in solution.  Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r208Pb_204Pb_rock" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratio of 208-Pb : 204-Pb in a rock sample.  Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r87Sr_86Sr" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratios for the stable isotope strontium measured in 87-Sr:87-Sr in a rock sample.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType"/>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -348,14 +664,46 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="Delta13C_CO2" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta13C_CH4" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta144Nd_143Nd" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta15N_N2" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta18O_CO2" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta34S_H2S" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta34S_SO4" type="xs:double" minOccurs="0"/>
-					<xs:element name="r3He_4He" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta13C_CO2" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Delta 13-C as CO2. Carbon-13 (13C) is a natural, stable isotope of carbon and one of the environmental isotopes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta13C_CH4" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The delta 13-C value in CH4.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta144Nd_143Nd" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Delta 144Nd/143Nd ratio.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta15N_N2" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Delta 15N/N2 ratio. There are two stable isotopes of nitrogen: 14N and 15N.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta18O_CO2" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Delta 18-O/CO2.  In geochemistry, paleoclimatology and paleoceanography delta-O-18 is a measure of the ratio of stable isotopes 18O:16O.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta34S_H2S" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Delta 34S/H2S ratio.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta34S_SO4" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Delta 34S/SO4 ratio.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r3He_4He" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratios for the helium isotopes 3-He:4-He in a rock sample.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType"/>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -366,32 +714,96 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="AlphaParticleActivity_pCiL" type="xs:double" minOccurs="0"/>
+					<xs:element name="AlphaParticleActivity_pCiL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Alpha particles are a form of ionizing radiation that is given off by radioactive materials such as uranium and radon. Reported in PicoCuries per liter.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Ce_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta18O_H2O" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta18O_steam" type="xs:double" minOccurs="0"/>
-					<xs:element name="DeltaDeuterium_H2O" type="xs:double" minOccurs="0"/>
-					<xs:element name="DeltaDeuterium_steam" type="xs:double" minOccurs="0"/>
+					<xs:element name="Delta18O_H2O" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Delta 18-O in water.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta18O_steam" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Delta 18-O in steam.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DeltaDeuterium_H2O" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Deuterium in water; often used as a tracer in groundwater hydrology, deterium can be found in most natural waters (a.k.a. "Heavy Water").</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DeltaDeuterium_steam" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Deuterium in steam; often used as a tracer in groundwater hydrology, deterium can be found in most natural waters (a.k.a. "Heavy Water").</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Ge_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="r18O_16O" type="xs:double" minOccurs="0"/>
+					<xs:element name="r18O_16O" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratios 18-O:16-O for the stable isotope O.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="r228Ra" type="xs:double" minOccurs="0"/>
 					<xs:element name="r230Th" type="xs:double" minOccurs="0"/>
 					<xs:element name="r232Th" type="xs:double" minOccurs="0"/>
 					<xs:element name="r234U" type="xs:double" minOccurs="0"/>
-					<xs:element name="r234U_238U" type="xs:double" minOccurs="0"/>
+					<xs:element name="r234U_238U" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratio of uranium-234:uranium-238.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="r235U" type="xs:double" minOccurs="0"/>
 					<xs:element name="r238U" type="xs:double" minOccurs="0"/>
-					<xs:element name="r3H_2H" type="xs:double" minOccurs="0"/>
-					<xs:element name="r3He_4He" type="xs:double" minOccurs="0"/>
-					<xs:element name="r3He_2He" type="xs:double" minOccurs="0"/>
-					<xs:element name="Ra226Total_pCiL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Rn222_pCiL" type="xs:double" minOccurs="0"/>
+					<xs:element name="r3H_2H" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratio of hydrogen-3:hydrogen-2.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r3He_4He" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratio of helium-3:helium-4.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r3He_2He" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Isotopic ratio of helium-3:helium-2.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Ra226Total_pCiL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total radium-226 reported in PicoCuries per liter.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Rn222_pCiL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total radon-222 reported in PicoCuries per liter.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Te_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="Th_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="TotalRa_pCiL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Tritium_TU" type="xs:double" minOccurs="0"/>
-					<xs:element name="U_activity_pCiL" type="xs:double" minOccurs="0"/>
-					<xs:element name="U_mgL" type="xs:double" minOccurs="0"/>
+					<xs:element name="TotalRa_pCiL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total radium reported in PicoCuries per liter.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Tritium_TU" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Tritium measured in Tritium Units, where 1 TU is defined as the ratio of 1 tritium atom to 1018 hydrogen atoms.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="U_activity_pCiL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Uranium as reported in PicoCuries per liter.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="U_mgL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Uranium as reported in mg/L.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType"/>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -402,13 +814,41 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="analyte" type="xs:string" minOccurs="0"/>
-					<xs:element name="result" type="xs:string" minOccurs="0"/>
-					<xs:element name="units" type="xs:string" minOccurs="0"/>
-					<xs:element name="uncertainty" type="xs:string" minOccurs="0"/>
-					<xs:element name="qualifier" type="xs:string" minOccurs="0"/>
-					<xs:element name="measurementMethod" type="xs:string" minOccurs="0"/>
-					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:element name="analyte" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Specifies the analyte described by this suite.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="result" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Text field describing the results of the single analyte analysis.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="units" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Units reported in the single analyte analysis.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="uncertainty" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Measure of uncertainty of the results.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="qualifier" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Statement regarding the single analyte.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="measurementMethod" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Text description of the process used to collect the single analyte.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Shape" type="gml:PointPropertyType">
+						<xs:annotation>
+							<xs:documentation>Added by GIS for WFS service; this element appears in the xml output, but is generated during service deployment from the latitude and longitude, therefore it doesn't appear in the template.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
