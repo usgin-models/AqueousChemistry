@@ -249,7 +249,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="ph_Field" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Field measure of the acidity or basicity of an aqueous solution. pH approximates but is not equal to p[H], the negative logarithm (base 10) of the molar concentration of dissolved hydrogen ions (H+).</xs:documentation>
-						</xs:annotation>  
+						</xs:annotation>
 					</xs:element>
 					<xs:element name="ph_Lab" type="xs:double" minOccurs="0">
 						<xs:annotation>
@@ -320,7 +320,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="FeTot_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="K_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="Na_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Na-K_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Na_K_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Na plus K as specific analytical value not a summary of Na and K results.</xs:documentation>
 						</xs:annotation>
