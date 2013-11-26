@@ -5,7 +5,7 @@
 	<xs:import namespace="http://www.opengis.net/gmlsf" schemaLocation="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd"/>
 	<xs:annotation>
 		<!--This XSD document, including XML schema, indicates the content requested for aqueous chemistry data, either for a thermal well or a thermal spring. In the geothermal data system, chemical observations are one of the observation services that are used as a method to discover resources derived from thermal springs or thermal wells with particular characteristics. Each chemical analysis observation should have a unique AnalysisURI and a corresponding SamplingFeatureURI-->
-		<!--Annotated Version 1.10.1. This XSD document was created on 2013-04-02 and edited on 2013-04-30 to contain descriptive annotation by Christy Caudill, AZGS. SRS description was edited 6/14/2013. This schema is based on the data available in the AASG Web Feature Services created for spring and well chemistry in Arizona. Field Description annotations standardized 2013-08-22 by Esty Pape, AZGS. -->
+		<!--Version 10.2 changed date types to 'dateTime'. Annotated Version 1.10.1. This XSD document was created on 2013-04-02 and edited on 2013-04-30 to contain descriptive annotation by Christy Caudill, AZGS. SRS description was edited 6/14/2013. This schema is based on the data available in the AASG Web Feature Services created for spring and well chemistry in Arizona. Field Description annotations standardized 2013-08-22 by Esty Pape, AZGS. -->
 		<xs:appinfo source="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd">
 			<gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
 			<gmlsf:GMLProfileSchema>
@@ -70,7 +70,8 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					</xs:element>
 					<xs:element name="SamplingFeatureType" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Type of feature that is the subject of this record: Thermal Spring, Borehole, Well, Pool, Stream.</xs:documentation></xs:annotation>
+							<xs:documentation>Type of feature that is the subject of this record: Thermal Spring, Borehole, Well, Pool, Stream.</xs:documentation>
+						</xs:annotation>
 					</xs:element>
 					<xs:element name="OtherSiteID" type="xs:string" minOccurs="0">
 						<xs:annotation>
@@ -102,7 +103,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="SpecimenCollectionDate" type="xs:string" minOccurs="0">
+					<xs:element name="SpecimenCollectionDate" type="xs:dateTime" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Date for the record: date on which observation, measurement or test was made or specimen was collected. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1', (or '1/1/', or '1-1-', or 'January 1,'). All dates will be converted to yyyy-mm-ddThh:mm.</xs:documentation>
 						</xs:annotation>
@@ -222,7 +223,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AnalysisDateTime" type="xs:string" minOccurs="0">
+					<xs:element name="AnalysisDateTime" type="xs:dateTime" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Date for the record: date on which observation, measurement or test was made or specimen was collected. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1', (or '1/1/', or '1-1-', or 'January 1,'). All dates will be converted to yyyy-mm-ddThh:mm.</xs:documentation>
 						</xs:annotation>
@@ -318,47 +319,47 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 						<xs:annotation>
 							<xs:documentation>Portion of the entire sample tested for this record; select from controlled vocabulary: Total solids, Dissolved solids, Fixed solids, Recoverable solids, Suspended solids, Gas, Liquid.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Br_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Ca_mgL" type="xs:double" minOccurs="0">
-					<xs:annotation>
+						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Cl_mgL" type="xs:double" minOccurs="0">
-							<xs:annotation>
+						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="F_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Fe_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="FeTot_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="K_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Na_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Na_K_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Na plus K as specific analytical value not a summary of Na and K results. Report analyte in mg/L.
@@ -369,17 +370,17 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="SiO2_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="SO4_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Sr_mgL" type="xs:double" minOccurs="0"/>
 					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
@@ -435,13 +436,12 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="FractionAnalyzed" type="xs:string" minOccurs="0">
-					</xs:element>
+					<xs:element name="FractionAnalyzed" type="xs:string" minOccurs="0"/>
 					<xs:element name="Ag_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Al_monomeric_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
@@ -451,147 +451,147 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="As_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Au_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="B_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Ba_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Be_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Bi_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Cd_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Co_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Cr_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Cs_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Cu_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Hg_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Li_mgL" type="xs:double" minOccurs="0">
-						<xs:annotation>	
+						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Mn_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Mo_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Ni_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="P_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Pb_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="S_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Sb_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Se_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Si_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Sn_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Ti_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="U_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="V_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="W_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Zn_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType">
 						<xs:annotation>
 							<xs:documentation>Added by GIS for WFS service; this element appears in the xml output, but is generated during service deployment from the latitude and longitude, therefore it doesn't appear in the template.</xs:documentation>
@@ -609,39 +609,48 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="Ca_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
-						</xs:annotation></xs:element>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Cl_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
-						</xs:annotation></xs:element>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="F_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
-						</xs:annotation></xs:element>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="K_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
-						</xs:annotation></xs:element>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Mg_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
-						</xs:annotation></xs:element>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Na_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
-						</xs:annotation></xs:element>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Na_K_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
-						</xs:annotation></xs:element>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="SiO2_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
-						</xs:annotation></xs:element>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="SO4_mgL" type="xs:double" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte in mg/L.</xs:documentation>
-						</xs:annotation></xs:element>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="cation_total" type="xs:double" minOccurs="0"/>
 					<xs:element name="anion_total" type="xs:double" minOccurs="0"/>
 					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0">
