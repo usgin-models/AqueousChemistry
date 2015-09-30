@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- edited with XMLSpy v2010 rel. 3 (x64) (http://www.altova.com) by Christy Caudill -->
-<xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/aqueouschemistry/1.10" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:gmlsf="http://www.opengis.net/gmlsf" targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/aqueouschemistry/1.10" elementFormDefault="qualified" version="01.09">
+<xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/aqueouschemistry/1.10" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:gmlsf="http://www.opengis.net/gmlsf" targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/aqueouschemistry/1.10" elementFormDefault="qualified" version="01.13">
 	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
 	<xs:import namespace="http://www.opengis.net/gmlsf" schemaLocation="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd"/>
 	<xs:annotation>
@@ -46,7 +46,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					</xs:element>
 					<xs:element name="AnalysisName" type="xs:string">
 						<xs:annotation>
-							<xs:documentation>Other human-intelligible labels for analysis such as secondary name or common name, other spellings. Indicate the authority from which the OtherName is derived with a short (lower case) prefix delimited by a colon ':' If identifiers from multiple different authorities are available, delimit these identifiers with the pipe character '|'. For example, if a well were known to the Arizona Geological Survey (AZGS) by the id number 1337, the identifier string would be azgs:1337. Any such prefixes used to scope identifiers should be explained in the dataset metadata. (If there are multiple analyses performed on a single sample, each analysis would correspond to a new line of data in the template.)</xs:documentation>
+							<xs:documentation>Human-intelligible label to identify the analysis. Analysis names should be unique within the dataset.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Notes" type="xs:string" minOccurs="0">
@@ -194,9 +194,9 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Subdivision of a PLSS section.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Elevation_ft_msl" type="xs:double" minOccurs="0">
+					<xs:element name="Elevation_m_msl" type="xs:double" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Elevation at ground level for the feature. 3 decimal places is recommended by the USGS (OFR 02-463, p.6). Elevations should be reported relative to mean sea level (MSL).</xs:documentation>
+							<xs:documentation>Elevation at ground level for the feature in meters. Elevations should be reported relative to mean sea level (MSL). </xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Source" type="xs:string">
@@ -239,6 +239,11 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Text description of how the measurement was made - instrumentation, logging rate, correction or extrapolation process, how time since circulation was determined, etc. Data provider should indicate QA/QC performed on the data, including individual or institution, time frame and depth of quality check.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="ConcentrationUnits" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Indicate the units of the analytes in this section (layer). All analytes reported in this record use the same units. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -272,9 +277,9 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Text description of how the measurement was made - instrumentation, logging rate, correction or extrapolation process, how time since circulation was determined, etc. Data provider should indicate QA/QC performed on the data, including individual or institution, time frame and depth of quality check.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="TotalDissolvedSolids_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="TotalDissolvedSolids" type="xs:double" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Total dissolved solids reported in mg/L.</xs:documentation>
+							<xs:documentation>Total dissolved solids reported in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="TotalDissolvedSolids_method" type="xs:string" minOccurs="0">
@@ -282,9 +287,9 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Text description of how the measurement was made - instrumentation, logging rate, correction or extrapolation process, how time since circulation was determined, etc. Data provider should indicate QA/QC performed on the data, including individual or institution, time frame and depth of quality check.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="TotalSuspendedSolids_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="TotalSuspendedSolids" type="xs:double" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Total suspended solids reported in mg/L.</xs:documentation>
+							<xs:documentation>Total suspended solids reported in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="TotalSuspendedSolids_method" type="xs:string" minOccurs="0">
@@ -321,71 +326,71 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Portion of the entire sample tested for this record; select from controlled vocabulary: Total solids, Dissolved solids, Fixed solids, Recoverable solids, Suspended solids, Gas, Liquid.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Br_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Br" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Ca_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ca" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Cl_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Cl" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="F_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="F" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Fe_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Fe" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="FeTot_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="FeTot" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="K_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="K" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Na_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Na" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Na_K_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Na_K" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Na plus K as specific analytical value not a summary of Na and K results. Report analyte in mg/L.
+							<xs:documentation>Na plus K as specific analytical value not a summary of Na and K results. Report in the unit indicated in the concentration units column.
 							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO3_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO3" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="SiO2_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="SiO2" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="SO4_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="SO4" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Sr_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Sr" type="xs:string" minOccurs="0"/>
+					<xs:element name="Alkalinity" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Quantitative capacity of water to neutralize an acid. Report in mg/L.</xs:documentation>
+							<xs:documentation>Quantitative capacity of water to neutralize an acid. Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Alkalinity_method" type="xs:string" minOccurs="0">
@@ -393,19 +398,19 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Text description of how the measurement was made - instrumentation, logging rate, correction or extrapolation process, how time since circulation was determined, etc. Data provider should indicate QA/QC performed on the data, including individual or institution, time frame and depth of quality check.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Bicarbonate_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Bicarbonate" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Carbonate_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Carbonate" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Hardness_CaCO3_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Hardness_CaCO3" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Hardness_method" type="xs:string" minOccurs="0">
@@ -413,9 +418,9 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Text description of how the measurement was made - instrumentation, logging rate, correction or extrapolation process, how time since circulation was determined, etc. Data provider should indicate QA/QC performed on the data, including individual or institution, time frame and depth of quality check.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="TotalDissolvedSolids_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="TotalDissolvedSolids" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="TotalDissolvedSolids_method" type="xs:string" minOccurs="0">
@@ -438,159 +443,159 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
 					<xs:element name="FractionAnalyzed" type="xs:string" minOccurs="0"/>
-					<xs:element name="Ag_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ag" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Al_monomeric_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Al_monomeric" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Al_total_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Al_total" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="As_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="As" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Au_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Au" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="B_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="B" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Ba_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ba" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Be_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Be" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Bi_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Bi" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Cd_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Cd" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Co_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Co" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Cr_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Cr" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Cs_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Cs" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Cu_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Cu" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Hg_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Hg" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Li_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Li" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Mn_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Mn" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Mo_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Mo" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Ni_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ni" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="P_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="P" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Pb_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Pb" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="S_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="S" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Sb_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Sb" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Se_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Se" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Si_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Si" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Sn_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Sn" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Ti_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ti" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="U_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="U" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="V_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="V" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="W_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="W" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Zn_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Zn" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType">
@@ -607,56 +612,79 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="Ca_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Al" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Cl_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ba" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="F_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ca" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="K_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Cl" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Mg_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="F" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Na_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="K" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Na_K_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Li" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="SiO2_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Mg" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="SO4_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Na" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="cation_total" type="xs:double" minOccurs="0"/>
-					<xs:element name="anion_total" type="xs:double" minOccurs="0"/>
-					<xs:element name="Alkalinity_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Na_K" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SiO2" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SO4" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="cation_total" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="anion_total" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Alkalinity" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Alkalinity_method" type="xs:string" minOccurs="0">
@@ -664,14 +692,14 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Text description of how the measurement was made - instrumentation, logging rate, correction or extrapolation process, how time since circulation was determined, etc. Data provider should indicate QA/QC performed on the data, including individual or institution, time frame and depth of quality check.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="chargeBalance_pct" type="xs:double" minOccurs="0">
+					<xs:element name="chargeBalance_pct" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Ratio of cations to anions as a percent.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Hardness_CaCO2" type="xs:double" minOccurs="0">
+					<xs:element name="Hardness_CaCO2" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Hardness_method" type="xs:string" minOccurs="0">
@@ -693,84 +721,109 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="B_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="As" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Br_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="B" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Fe_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Br" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="H_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Cu" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="I_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Cs" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Mn_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Fe" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NH4_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="H" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO2_field_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="I" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO2_lab_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Mn" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO3_field_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NH4" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO3_lab_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ni" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="OH_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO2_field" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="PO4_as_P_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO2_lab" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Rb_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO3_field" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Sr_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO3_lab" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Zr_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="OH" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pb" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PO4_as_P" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Rb" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Sr" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Zr" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType">
@@ -787,69 +840,69 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="N_Kjeldahl_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="N_Kjeldahl" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Total Kjeldahl Nitrogen or TKN is the sum of organic nitrogen, ammonia (NH3), and ammonium (NH4+) in the chemical analysis of soil, water, or wastewater (e.g. sewage treatment plant effluent). To calculate Total Nitrogen (TN), the concentrations of nitrate-N and nitrite-N are determined and added to TKN. TKN is determined in the same manner as organic nitrogen, except that the ammonia is not driven off before the digestion step. Reported in mg/L.</xs:documentation>
+							<xs:documentation>Total Kjeldahl Nitrogen or TKN is the sum of organic nitrogen, ammonia (NH3), and ammonium (NH4+) in the chemical analysis of soil, water, or wastewater (e.g. sewage treatment plant effluent). To calculate Total Nitrogen (TN), the concentrations of nitrate-N and nitrite-N are determined and added to TKN. TKN is determined in the same manner as organic nitrogen, except that the ammonia is not driven off before the digestion step. Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NH4_as_N_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NH4_as_N" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NH4_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NH4" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Nitrate_field_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Nitrate_field" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Nitrate_lab_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Nitrate_lab" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NitratePlusNitrite_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NitratePlusNitrite" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Nitrate NO3 plus Nitrite NO2 in mg/L.  Reported in mg/L.</xs:documentation>
+							<xs:documentation>Nitrate NO3 plus Nitrite NO2 in mg/L.  Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Nitrite_field_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Nitrite_field" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Nitrite_lab_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Nitrite_lab" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO2_field_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO2_field" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO2_lab_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO2_lab" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO3_field_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO3_field" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO3_lab_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="NO3_lab" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType">
@@ -866,54 +919,54 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="Ar_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ar" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="CH4_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="CH4" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="CO2_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="CO2" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="H2_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="H2" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="H2S_as_N_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="H2S_as_N" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="He_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="He" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Kr_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Kr" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="N2_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="N2" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Ne_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Ne" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="O2_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="O2" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType">
@@ -930,82 +983,82 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="Ar_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="Ar_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="C2H6_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="C2H6_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="CH4_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="CH4_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="CO2_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="CO2_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="H2_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="H2_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="H2S_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="H2S_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="He_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="He_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Kr_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="Kr_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="N2_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="N2_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Ne_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="Ne_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NH3_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="NH3_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="NO_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="NO_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="O2_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="O2_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Report analyte in mg/L.</xs:documentation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="O2plusAr_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="O2plusAr_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Oxygen as O2 plus Ar. Reported as a volume percent.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="SO2_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="SO2_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte as percent.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="TotalFreeGas_volpct" type="xs:double" minOccurs="0">
+					<xs:element name="TotalFreeGas_volpct" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Dissolved gas, reported as a volume percent.</xs:documentation>
 						</xs:annotation>
@@ -1024,77 +1077,77 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="Delta_13C_HCO3" type="xs:double" minOccurs="0">
+					<xs:element name="Delta_13C_HCO3" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic Ratio of 13-C:HCO3 in carbonate minerals, reported in parts per thousand (per mil).</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta_13Cmineral_carbonate" type="xs:double" minOccurs="0">
+					<xs:element name="Delta_13Cmineral_carbonate" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic Ratio of 13-C:12-C in carbonate minerals. In geochemistry, paleoclimatology and paleoceanography 13-C is an isotopic signature, a measure of the ratio of stable isotopes 13-C:12-C, reported in parts per thousand (per mil).</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta_13Ctotal_dissolved" type="xs:double" minOccurs="0">
+					<xs:element name="Delta_13Ctotal_dissolved" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Ratio of 13-C:12-C in solution. Carbon-13 (13C) is a natural, stable isotope of carbon and one of the environmental isotopes.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta18O_sulfate" type="xs:double" minOccurs="0">
+					<xs:element name="Delta18O_sulfate" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>The delta 18-O value in sulfate.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta18Omineral_sulfate" type="xs:double" minOccurs="0">
+					<xs:element name="Delta18Omineral_sulfate" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic Ratio of 18-O:16-O in sulfate.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta34S" type="xs:double" minOccurs="0">
+					<xs:element name="Delta34S" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report in ppm.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r11B_10B" type="xs:double" minOccurs="0">
+					<xs:element name="r11B_10B" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Carbon-14 as a percent of modern carbon, calibrated. Carbon-14, 14C, or radiocarbon, is a radioactive isotope of carbon with a nucleus containing 6 protons and 8 neutrons.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r14C_pctModern" type="xs:double" minOccurs="0">
+					<xs:element name="r14C_pctModern" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Carbon-14 as a percent of modern carbon, calibrated.  Carbon-14, 14C, or radiocarbon, is a radioactive isotope of carbon with a nucleus containing 6 protons and 8 neutrons.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r206Pb_204Pb_diss" type="xs:double" minOccurs="0">
+					<xs:element name="r206Pb_204Pb_diss" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic Ratio of 206-Pb : 204-Pb dissolved in solution. Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r206Pb_204Pb_rock" type="xs:double" minOccurs="0">
+					<xs:element name="r206Pb_204Pb_rock" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratio of 207-Pb : 204-Pb in a rock sample. Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r207Pb_204Pb_diss" type="xs:double" minOccurs="0">
+					<xs:element name="r207Pb_204Pb_diss" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic Ratio of 207-Pb : 204-Pb dissolved in solution. Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r207Pb_204Pb_rock" type="xs:double" minOccurs="0">
+					<xs:element name="r207Pb_204Pb_rock" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratio of 207-Pb : 204-Pb in a rock sample. Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r208Pb_204Pb_diss" type="xs:double" minOccurs="0">
+					<xs:element name="r208Pb_204Pb_diss" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic Ratio of 208-Pb : 204-Pb dissolved in solution. Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r208Pb_204Pb_rock" type="xs:double" minOccurs="0">
+					<xs:element name="r208Pb_204Pb_rock" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratio of 208-Pb : 204-Pb in a rock sample. Lead (Pb) has four stable isotopes: 204Pb, 206Pb, 207Pb, 208Pb. Lead-204 is entirely a primordial nuclide and none of it is radiogenic. The isotopes lead-206, lead-207, and lead-208 represent the ends of decay chains called the uranium series (or radium series), the thorium series, and the actinium series respectively. These series represent the decay chain products of long-lived primoridal U-238, U-235, and Th-232 respectively.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r87Sr_86Sr" type="xs:double" minOccurs="0">
+					<xs:element name="r87Sr_86Sr" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratios for the stable isotope strontium measured in 87-Sr:87-Sr in a rock sample.</xs:documentation>
 						</xs:annotation>
@@ -1113,42 +1166,42 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="Delta13C_CO2" type="xs:double" minOccurs="0">
+					<xs:element name="Delta13C_CO2" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Delta 13-C as CO2. Carbon-13 (13C) is a natural, stable isotope of carbon and one of the environmental isotopes.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta13C_CH4" type="xs:double" minOccurs="0">
+					<xs:element name="Delta13C_CH4" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>The delta 13-C value in CH4.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta144Nd_143Nd" type="xs:double" minOccurs="0">
+					<xs:element name="Delta144Nd_143Nd" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Delta 144Nd/143Nd ratio.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta15N_N2" type="xs:double" minOccurs="0">
+					<xs:element name="Delta15N_N2" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Delta 15N/N2 ratio. There are two stable isotopes of nitrogen: 14N and 15N.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta18O_CO2" type="xs:double" minOccurs="0">
+					<xs:element name="Delta18O_CO2" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Delta 18-O/CO2. In geochemistry, paleoclimatology and paleoceanography delta-O-18 is a measure of the ratio of stable isotopes 18O:16O.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta34S_H2S" type="xs:double" minOccurs="0">
+					<xs:element name="Delta34S_H2S" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Delta 34S/H2S ratio.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta34S_SO4" type="xs:double" minOccurs="0">
+					<xs:element name="Delta34S_SO4" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Delta 34S/SO4 ratio.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r3He_4He" type="xs:double" minOccurs="0">
+					<xs:element name="r3He_4He" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratios for the helium isotopes 3-He:4-He in a rock sample.</xs:documentation>
 						</xs:annotation>
@@ -1167,100 +1220,108 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="aasg:SampleAnalysisCommonType">
 				<xs:sequence>
-					<xs:element name="AlphaParticleActivity_pCiL" type="xs:double" minOccurs="0">
+					<xs:element name="AlphaParticleActivity" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Alpha particles are a form of ionizing radiation that is given off by radioactive materials such as uranium and radon. Reported in PicoCuries per liter.</xs:documentation>
+							<xs:documentation>Alpha particles are a form of ionizing radiation that is given off by radioactive materials such as uranium and radon. Report in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Ce_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="Delta18O_H2O" type="xs:double" minOccurs="0">
+					<xs:element name="Ce" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Delta18O_H2O" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Delta 18-O in water.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Delta18O_steam" type="xs:double" minOccurs="0">
+					<xs:element name="Delta18O_steam" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Delta 18-O in steam.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="DeltaDeuterium_H2O" type="xs:double" minOccurs="0">
+					<xs:element name="DeltaDeuterium_H2O" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Deuterium in water; often used as a tracer in groundwater hydrology, deterium can be found in most natural waters (a.k.a. "Heavy Water").</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="DeltaDeuterium_steam" type="xs:double" minOccurs="0">
+					<xs:element name="DeltaDeuterium_steam" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Deuterium in steam; often used as a tracer in groundwater hydrology, deterium can be found in most natural waters (a.k.a. "Heavy Water").</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Ge_mgL" type="xs:double" minOccurs="0"/>
-					<xs:element name="r18O_16O" type="xs:double" minOccurs="0">
+					<xs:element name="Ge" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="r18O_16O" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratios 18-O:16-O for the stable isotope O.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r228Ra" type="xs:double" minOccurs="0"/>
-					<xs:element name="r230Th" type="xs:double" minOccurs="0"/>
-					<xs:element name="r232Th" type="xs:double" minOccurs="0"/>
-					<xs:element name="r234U" type="xs:double" minOccurs="0"/>
-					<xs:element name="r234U_238U" type="xs:double" minOccurs="0">
+					<xs:element name="r228Ra" type="xs:string" minOccurs="0"/>
+					<xs:element name="r230Th" type="xs:string" minOccurs="0"/>
+					<xs:element name="r232Th" type="xs:string" minOccurs="0"/>
+					<xs:element name="r234U" type="xs:string" minOccurs="0"/>
+					<xs:element name="r234U_238U" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratio of uranium-234:uranium-238.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r235U" type="xs:double" minOccurs="0"/>
-					<xs:element name="r238U" type="xs:double" minOccurs="0"/>
-					<xs:element name="r3H_2H" type="xs:double" minOccurs="0">
+					<xs:element name="r235U" type="xs:string" minOccurs="0"/>
+					<xs:element name="r238U" type="xs:string" minOccurs="0"/>
+					<xs:element name="r3H_2H" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratio of hydrogen-3:hydrogen-2.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r3He_4He" type="xs:double" minOccurs="0">
+					<xs:element name="r3He_4He" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratio of helium-3:helium-4.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r3He_2He" type="xs:double" minOccurs="0">
+					<xs:element name="r3He_2He" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Isotopic ratio of helium-3:helium-2.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Ra226Total_pCiL" type="xs:double" minOccurs="0">
+					<xs:element name="Ra226Total" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Total radium-226 reported in PicoCuries per liter.</xs:documentation>
+							<xs:documentation>Total radium-226 reported in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Rn222_pCiL" type="xs:double" minOccurs="0">
+					<xs:element name="Rn222" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Total radon-222 reported in PicoCuries per liter.</xs:documentation>
+							<xs:documentation>Total radon-222 reported in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Te_mgL" type="xs:double" minOccurs="0">
-						<xs:annotation>
-							<xs:documentation>Report analyte as percent.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="Th_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="Te" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte as percent.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="TotalRa_pCiL" type="xs:double" minOccurs="0">
+					<xs:element name="Th" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Total radium reported in PicoCuries per liter.</xs:documentation>
+							<xs:documentation>Report analyte as percent.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Tritium_TU" type="xs:double" minOccurs="0">
+					<xs:element name="TotalRa" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Total radium reported in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Tritium_TU" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Tritium measured in Tritium Units, where 1 TU is defined as the ratio of 1 tritium atom to 1018 hydrogen atoms.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="U_activity_pCiL" type="xs:double" minOccurs="0">
+					<xs:element name="U_activity" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Uranium as reported in PicoCuries per liter.</xs:documentation>
+							<xs:documentation>Uranium as reported in the unit indicated in the concentration units column.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="U_mgL" type="xs:double" minOccurs="0">
+					<xs:element name="U" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Report analyte as percent.</xs:documentation>
 						</xs:annotation>
@@ -1326,71 +1387,278 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="UTMZone" type="xs:string" minOccurs="0"/>
 					<xs:element name="UTME" type="xs:string" minOccurs="0"/>
 					<xs:element name="UTMN" type="xs:string" minOccurs="0"/>
-					<xs:element name="Units" type="xs:string" minOccurs="0">
-						<xs:annotation>
-							<xs:documentation>Indicate the units of the analytes in this section (layer). If mutliple units are used, indicate here.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
 					<xs:element name="FluidOrigin" type="xs:string" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>magmatic, meteoric, etc. List if multiple possible sources.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="GoethermalArea" type="xs:string" minOccurs="0"/>
+					<xs:element name="GeothermalArea" type="xs:string" minOccurs="0"/>
 					<xs:element name="REE_Method" type="xs:string" minOccurs="0"/>
-					<xs:element name="pH" type="xs:double" minOccurs="0"/>
-					<xs:element name="Ac" type="xs:double" minOccurs="0"/>
-					<xs:element name="Ag" type="xs:double" minOccurs="0"/>
-					<xs:element name="Am" type="xs:double" minOccurs="0"/>
-					<xs:element name="Au" type="xs:double" minOccurs="0"/>
-					<xs:element name="B" type="xs:double" minOccurs="0"/>
-					<xs:element name="Ba" type="xs:double" minOccurs="0"/>
-					<xs:element name="Bk" type="xs:double" minOccurs="0"/>
-					<xs:element name="Ce" type="xs:double" minOccurs="0"/>
-					<xs:element name="Cf" type="xs:double" minOccurs="0"/>
-					<xs:element name="Cm" type="xs:double" minOccurs="0"/>
-					<xs:element name="Dy" type="xs:double" minOccurs="0"/>
-					<xs:element name="Er" type="xs:double" minOccurs="0"/>
-					<xs:element name="Es" type="xs:double" minOccurs="0"/>
-					<xs:element name="Eu" type="xs:double" minOccurs="0"/>
-					<xs:element name="Fm" type="xs:double" minOccurs="0"/>
-					<xs:element name="Ga" type="xs:double" minOccurs="0"/>
-					<xs:element name="Gd" type="xs:double" minOccurs="0"/>
-					<xs:element name="Hf" type="xs:double" minOccurs="0"/>
-					<xs:element name="Ho" type="xs:double" minOccurs="0"/>
-					<xs:element name="In" type="xs:double" minOccurs="0"/>
-					<xs:element name="La" type="xs:double" minOccurs="0"/>
-					<xs:element name="Li" type="xs:double" minOccurs="0"/>
-					<xs:element name="Lo" type="xs:double" minOccurs="0"/>
-					<xs:element name="Lu" type="xs:double" minOccurs="0"/>
-					<xs:element name="Lr" type="xs:double" minOccurs="0"/>
-					<xs:element name="Md" type="xs:double" minOccurs="0"/>
-					<xs:element name="Mn" type="xs:double" minOccurs="0"/>
-					<xs:element name="Na" type="xs:double" minOccurs="0"/>
-					<xs:element name="Nb" type="xs:double" minOccurs="0"/>
-					<xs:element name="Nd" type="xs:double" minOccurs="0"/>
-					<xs:element name="No" type="xs:double" minOccurs="0"/>
-					<xs:element name="Np" type="xs:double" minOccurs="0"/>
-					<xs:element name="Pa" type="xs:double" minOccurs="0"/>
-					<xs:element name="Pm" type="xs:double" minOccurs="0"/>
-					<xs:element name="Pd" type="xs:double" minOccurs="0"/>
-					<xs:element name="Pr" type="xs:double" minOccurs="0"/>
-					<xs:element name="Pt" type="xs:double" minOccurs="0"/>
-					<xs:element name="Pu" type="xs:double" minOccurs="0"/>
-					<xs:element name="Re" type="xs:double" minOccurs="0"/>
-					<xs:element name="Sc" type="xs:double" minOccurs="0"/>
-					<xs:element name="Si" type="xs:double" minOccurs="0"/>
-					<xs:element name="Sm" type="xs:double" minOccurs="0"/>
-					<xs:element name="Ta" type="xs:double" minOccurs="0"/>
-					<xs:element name="Te" type="xs:double" minOccurs="0"/>
-					<xs:element name="Tb" type="xs:double" minOccurs="0"/>
-					<xs:element name="Tc" type="xs:double" minOccurs="0"/>
-					<xs:element name="Th" type="xs:double" minOccurs="0"/>
-					<xs:element name="Tm" type="xs:double" minOccurs="0"/>
-					<xs:element name="U" type="xs:double" minOccurs="0"/>
-					<xs:element name="Y" type="xs:double" minOccurs="0"/>
-					<xs:element name="Yb" type="xs:double" minOccurs="0"/>
-					<xs:element name="Zn" type="xs:double" minOccurs="0"/>
+					<xs:element name="pH" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Ac" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Ag" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Am" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Au" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="B" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Ba" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Bk" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Ce" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Cf" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Cm" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Dy" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Er" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Es" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Eu" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Fm" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Ga" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Gd" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Hf" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Ho" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="In" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="La" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Li" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Lo" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Lu" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Lr" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Md" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Mn" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Na" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Nb" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Nd" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="No" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Np" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pa" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pm" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pd" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pr" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pt" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pu" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Re" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Sc" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Si" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Sm" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Ta" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Te" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Tb" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Tc" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Th" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Tm" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="U" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Y" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Yb" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Zn" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Report in the unit indicated in the concentration units column.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Shape" type="gml:PointPropertyType">
 						<xs:annotation>
 							<xs:documentation>Added by GIS for WFS service; this element appears in the xml output, but is generated during service deployment from the latitude and longitude, therefore it doesn't appear in the template.</xs:documentation>
